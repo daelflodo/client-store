@@ -20,7 +20,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
         case POST_PRODUCT:
             return {
                 ...state,
-                recipes: [...state.products, payload]
+                products: [...state.products, payload]
             }
         default:
             return { ...state }
