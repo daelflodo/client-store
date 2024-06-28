@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { postProduct } from "../../redux/actions/actions";
+import { toast } from "react-toastify";
+import validationFormProduct from "../../common/Validation/validationFormProduct";
 
 const ProductForm = () => {
     const dispatch = useDispatch();
@@ -10,9 +12,18 @@ const ProductForm = () => {
         type: "Perecedero",
         image: ""
     });
+    const [errorFormProduct, setErrorFormProduct] = useState({})
+
+
 
     const handleSubmit = (event) => {
         event.preventDefault()
+
+        if (Object.keys(errorFormProduct).length !== 0) {
+            toast.error('Missing data');
+            return
+        }
+
         dispatch(postProduct(formDataProduct));
 
         setFormDataProduct({
@@ -29,6 +40,11 @@ const ProductForm = () => {
             ...formDataProduct,
             [name]: value
         });
+
+        setErrorFormProduct(validationFormProduct({
+            ...formDataProduct,
+            [event.target.name]: event.target.value
+        }))
     }
 
     return (
@@ -48,6 +64,7 @@ const ProductForm = () => {
                                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                     Name
                                 </label>
+                                {errorFormProduct.name && <p style={{ color: "red" }}>{errorFormProduct.name}</p>}
                                 <input
                                     value={formDataProduct.name}
                                     onChange={handleChange}
@@ -63,6 +80,7 @@ const ProductForm = () => {
                                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                     Price
                                 </label>
+                                {errorFormProduct.price && <p style={{ color: "red" }}>{errorFormProduct.price}</p>}
                                 <input
                                     value={formDataProduct.price}
                                     onChange={handleChange}
@@ -77,6 +95,7 @@ const ProductForm = () => {
                                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                     Type
                                 </label>
+                                {errorFormProduct.type && <p style={{ color: "red" }}>{errorFormProduct.type}</p>}
                                 <select
                                     value={formDataProduct.type}
                                     onChange={handleChange}
@@ -95,6 +114,7 @@ const ProductForm = () => {
                                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                     Image
                                 </label>
+                                {errorFormProduct.image && <p style={{ color: "red" }}>{errorFormProduct.image}</p>}
                                 <input
                                     value={formDataProduct.image}
                                     onChange={handleChange}
