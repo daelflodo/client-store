@@ -48,7 +48,6 @@ const ProductForm = () => {
                                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                     Name
                                 </label>
-                                {/* {errorFormProduct.name && <p style={{ color: "red" }}>{errorFormProduct.name}</p>} */}
                                 <input
                                     value={formDataProduct.name}
                                     onChange={handleChange}
@@ -64,7 +63,6 @@ const ProductForm = () => {
                                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                     Price
                                 </label>
-                                {/* {errorFormProduct.price && <p style={{ color: "red" }}>{errorFormProduct.price}</p>} */}
                                 <input
                                     value={formDataProduct.price}
                                     onChange={handleChange}
@@ -79,7 +77,6 @@ const ProductForm = () => {
                                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                     Type
                                 </label>
-                                {/* {errorFormProduct.type && <p style={{ color: "red" }}>{errorFormProduct.type}</p>} */}
                                 <select
                                     value={formDataProduct.type}
                                     onChange={handleChange}
@@ -98,7 +95,6 @@ const ProductForm = () => {
                                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                     Image
                                 </label>
-                                {/* {errorFormProduct.image && <p style={{ color: "red" }}>{errorFormProduct.image}</p>} */}
                                 <input
                                     value={formDataProduct.image}
                                     onChange={handleChange}

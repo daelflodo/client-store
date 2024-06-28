@@ -49,7 +49,6 @@ export function postProduct(payload) {
             toast.success('Product created successfully');
         } catch (error) {
             const errorData = error.response.data.error.message;
-            // console.log("ERRORACTIONSPRODUCTFORM:", errorData);
             errorData.map((element) => {
                 return (
                     toast.error(element)
