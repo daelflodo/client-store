@@ -1,21 +1,41 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductDetail } from "../../redux/actions/actions";
 import { useParams } from "react-router-dom";
+import Modal from "react-modal"
+import ProductForm from "../ProductForm/ProductForm";
 
 const ProductDetail = () => {
     const { id: productId } = useParams();
     const dispatch = useDispatch();
     const productDetail = useSelector((state) => state.productDetail);
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     useEffect(() => {
         dispatch(getProductDetail(productId));
     }, [dispatch, productId])
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
 
     return (
         <div className="container mx-auto pt-8 px-4">
             {productDetail && (
                 <div className="flex flex-col items-center bg-gray-800 p-8 rounded-lg shadow-lg">
+                    <div className="flex justify-between w-full mb-4">
+                        <button
+                            onClick={openModal}
+                            className="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
+                        >
+                            Update
+                        </button>
+                    </div>
                     <div className="flex items-start space-x-8">
                         <img
                             src={productDetail.image}
@@ -44,6 +64,17 @@ const ProductDetail = () => {
                             </table>
                         </div>
                     </div>
+                    <Modal
+                        isOpen={isModalOpen}
+                        onRequestClose={closeModal}
+                        className="w-[45%] h-[45%] mx-auto my-auto p-5 py-5"
+                    >
+                        <ProductForm
+                            product={productDetail}
+                            closeModal={closeModal}
+                            isUpdating={true}
+                        />
+                    </Modal>
                 </div>
             )}
         </div>

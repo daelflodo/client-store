@@ -1,5 +1,5 @@
 
-import { GET_ALL_PRODUCTS, GET_PRODUCT_DETAIL, POST_PRODUCT } from './actions-types'
+import { GET_ALL_PRODUCTS, GET_PRODUCT_DETAIL, POST_PRODUCT, UPDATE_PRODUCT } from './actions-types'
 import api from '../../services/api';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -58,4 +58,22 @@ export function postProduct(payload) {
         }
     }
 }
+
+export const updateProduct = (id, payload) => {
+    return async (dispatch) => {
+        try {
+            await api.patch(`api/products/edit/${id}`, payload);
+            dispatch({
+                type: UPDATE_PRODUCT,
+                payload: {
+                    updatedProduct: payload,
+                },
+            });
+            toast.success('The product was updated successfully');
+        } catch (error) {
+            toast.error(error.response.data.error.message)
+            console.log("ERROR", error);
+        }
+    };
+};
 
