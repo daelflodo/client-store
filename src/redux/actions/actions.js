@@ -1,5 +1,5 @@
 
-import { DELETE_PRODUCT, GET_ALL_PRODUCTS, GET_ALL_STORES, GET_PRODUCT_DETAIL, GET_STORES_DETAIL, POST_PRODUCT, POST_STORES, UPDATE_PRODUCT } from './actions-types'
+import { DELETE_PRODUCT, GET_ALL_PRODUCTS, GET_ALL_STORES, GET_PRODUCT_DETAIL, GET_STORES_DETAIL, POST_PRODUCT, POST_STORES, UPDATE_PRODUCT, UPDATE_STORES } from './actions-types'
 import api from '../../services/api';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -140,4 +140,22 @@ export function postStores(payload) {
         }
     }
 }
+
+export const updateStore = (id, payload) => {
+    return async (dispatch) => {
+        try {
+            await api.patch(`api/stores/edit/${id}`, payload)
+            dispatch({
+                type: UPDATE_STORES,
+                payload: {
+                    updateStore: payload
+                }
+            });
+            toast.success('The stores was updated successfully');
+        } catch (error) {
+            toast.error(error.response.data.error.message)
+            console.log("ERROR", error);
+        }
+    };
+};
 

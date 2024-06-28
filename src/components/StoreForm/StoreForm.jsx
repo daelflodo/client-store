@@ -1,16 +1,17 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { postStores } from "../../redux/actions/actions";
+import { postStores, updateStore } from "../../redux/actions/actions";
 import validationFormStore from "../../common/Validation/validationFormStore";
 import { toast } from "react-toastify";
 
-const StoreForm = () => {
+const StoreForm = ({ store, closeModal, isUpdating }) => {
     const dispatch = useDispatch();
 
     const [formDataStore, setFormDataStore] = useState({
-        name: "",
-        city: "",
-        address: "",
+        name: store ? store.name : "",
+        city: store ? store.city : "",
+        address: store ? store.address : "",
+
     });
 
     const [errorFormStore, setErrorFormStore] = useState({})
@@ -22,13 +23,21 @@ const StoreForm = () => {
             return
         }
 
-        dispatch(postStores(formDataStore));
+        if (isUpdating) {
+            dispatch(updateStore(store.id, formDataStore));
+        } else {
+            dispatch(postStores(formDataStore));
+        }
 
         setFormDataStore({
             name: "",
             city: "",
             address: "",
         });
+
+        if (isUpdating) {
+            closeModal();
+        }
     }
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -51,7 +60,7 @@ const StoreForm = () => {
                 <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                            Add Stores
+                            {isUpdating ? "Update Stores" : "Add Stores"}
                         </h1>
                         <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6" action="#">
                             <div>
@@ -104,7 +113,7 @@ const StoreForm = () => {
                             <button
                                 type="submit"
                                 className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                                Add Store
+                                {isUpdating ? "Update Stores" : "Add Stores"}
                             </button>
 
                         </form>
