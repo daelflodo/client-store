@@ -10,3 +10,5 @@ export const ProductTypeList = [
 ];
 
 export const urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
+
+export const cityRegex = /^[a-zA-Z]+$/;
