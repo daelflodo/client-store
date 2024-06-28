@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getStoreDetail } from "../../redux/actions/actions";
-import { useParams } from "react-router-dom";
+import { deleteStore, getStoreDetail } from "../../redux/actions/actions";
+import { useNavigate, useParams } from "react-router-dom";
 import Modal from "react-modal";
 import StoreForm from "../StoreForm/StoreForm";
 
@@ -10,6 +10,8 @@ const StoreDetail = () => {
     const { id: storeId } = useParams();
     const dispatch = useDispatch();
     const storeDetail = useSelector((state) => state.storeDetail)
+    const navigate = useNavigate();
+
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -23,6 +25,10 @@ const StoreDetail = () => {
     const closeModal = () => {
         setIsModalOpen(false);
     };
+    const handleDeleteStore = (storeId) => {
+        dispatch(deleteStore(storeId));
+        navigate('/stores');
+    };
 
 
     return (
@@ -35,7 +41,14 @@ const StoreDetail = () => {
                     >
                         Update
                     </button>
+                    <button
+                        onClick={() => handleDeleteStore(storeId)}
+                        className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+                    >
+                        Delete
+                    </button>
                 </div>
+
                 <div className="flex items-start space-x-8">
                     <div className="w-full">
                         <div className="min-w-full divide-y divide-gray-400" style={{ display: 'flex', flexDirection: 'column' }}>

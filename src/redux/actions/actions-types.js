@@ -8,6 +8,7 @@ export const GET_ALL_STORES = 'GET_ALL_STORES';
 export const GET_STORES_DETAIL = 'GET_STORES_DETAIL';
 export const POST_STORES = 'POST_STORES';
 export const UPDATE_STORES = 'UPDATE_STORES'
+export const DELETE_STORES = 'DELETE_STORES';
 
 
 

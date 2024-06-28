@@ -1,5 +1,5 @@
 
-import { DELETE_PRODUCT, GET_ALL_PRODUCTS, GET_ALL_STORES, GET_PRODUCT_DETAIL, GET_STORES_DETAIL, POST_PRODUCT, POST_STORES, UPDATE_PRODUCT, UPDATE_STORES } from './actions-types'
+import { DELETE_PRODUCT, DELETE_STORES, GET_ALL_PRODUCTS, GET_ALL_STORES, GET_PRODUCT_DETAIL, GET_STORES_DETAIL, POST_PRODUCT, POST_STORES, UPDATE_PRODUCT, UPDATE_STORES } from './actions-types'
 import api from '../../services/api';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -155,6 +155,21 @@ export const updateStore = (id, payload) => {
         } catch (error) {
             toast.error(error.response.data.error.message)
             console.log("ERROR", error);
+        }
+    };
+};
+
+export const deleteStore = (id) => {
+    return async (dispatch) => {
+        try {
+            const { data } = await api.delete(`api/stores/delete/${id}`);
+            dispatch({
+                type: DELETE_STORES,
+                payload: data
+            });
+            toast.success(data.message)
+        } catch (error) {
+            toast.error(error.response.data.error.message)
         }
     };
 };
