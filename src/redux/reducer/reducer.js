@@ -1,9 +1,10 @@
-import { GET_ALL_PRODUCTS, GET_ALL_STORES, GET_PRODUCT_DETAIL, POST_PRODUCT } from "../actions/actions-types"
+import { GET_ALL_PRODUCTS, GET_ALL_STORES, GET_PRODUCT_DETAIL, GET_STORES_DETAIL, POST_PRODUCT } from "../actions/actions-types"
 
 const initialState = {
     products: [],
     productDetail: "",
     stores: [],
+    storeDetail: "",
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -28,6 +29,11 @@ const rootReducer = (state = initialState, { type, payload }) => {
                 ...state,
                 stores: payload,
             };
+        case GET_STORES_DETAIL:
+            return {
+                ...state,
+                storeDetail: payload,
+            }
         default:
             return { ...state }
     }

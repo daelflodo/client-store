@@ -1,5 +1,5 @@
 
-import { DELETE_PRODUCT, GET_ALL_PRODUCTS, GET_ALL_STORES, GET_PRODUCT_DETAIL, POST_PRODUCT, UPDATE_PRODUCT } from './actions-types'
+import { DELETE_PRODUCT, GET_ALL_PRODUCTS, GET_ALL_STORES, GET_PRODUCT_DETAIL, GET_STORES_DETAIL, POST_PRODUCT, UPDATE_PRODUCT } from './actions-types'
 import api from '../../services/api';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -101,6 +101,21 @@ export const getAllStores = () => {
             })
         } catch (error) {
             toast.error(error.response.data.error.message)
+        }
+    }
+}
+
+export const getStoreDetail = (id) => {
+    return async function (dispatch) {
+        try {
+            const { data } = await api.get(`api/stores/${id}`);
+            return dispatch({
+                type: GET_STORES_DETAIL,
+                payload: data
+            })
+        } catch (error) {
+            toast.error(error.response.data.error.message)
+            console.log("ERROR", error);
         }
     }
 }
