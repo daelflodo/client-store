@@ -1,5 +1,5 @@
 
-import { DELETE_PRODUCT, GET_ALL_PRODUCTS, GET_PRODUCT_DETAIL, POST_PRODUCT, UPDATE_PRODUCT } from './actions-types'
+import { DELETE_PRODUCT, GET_ALL_PRODUCTS, GET_ALL_STORES, GET_PRODUCT_DETAIL, POST_PRODUCT, UPDATE_PRODUCT } from './actions-types'
 import api from '../../services/api';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -30,7 +30,6 @@ export const getProductDetail = (id) => {
                 type: GET_PRODUCT_DETAIL,
                 payload: data
             })
-            console.log("DATA-ACTIONS:", data);
         } catch (error) {
             toast.error(error.response.data.error.error)
             console.log("ERROR", error);
@@ -91,4 +90,18 @@ export const deleteProduct = (id) => {
         }
     };
 };
+
+export const getAllStores = () => {
+    return async function (dispatch) {
+        try {
+            const { data } = await api.get(`api/stores/all`);
+            return dispatch({
+                type: GET_ALL_STORES,
+                payload: data
+            })
+        } catch (error) {
+            toast.error(error.response.data.error.message)
+        }
+    }
+}
 
