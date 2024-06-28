@@ -8,6 +8,7 @@ import ProductForm from './components/ProductForm/ProductForm';
 import { ToastContainer } from 'react-toastify';
 import StoreList from './components/StoreList/StoreList';
 import StoreDetail from './components/StoreDetail/StoreDetail';
+import StoreForm from './components/StoreForm/StoreForm';
 
 function App() {
   const location = useLocation();
@@ -22,6 +23,7 @@ function App() {
         <Route path="/products/create" element={<ProductForm/>}/>
         <Route path="/stores" element={<StoreList/>}/>
         <Route path="/stores/:id" element={<StoreDetail/>}/>
+        <Route path="/stores/create" element={<StoreForm/>}/>
       </Routes>
     </>
   );

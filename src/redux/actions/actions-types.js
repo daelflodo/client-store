@@ -6,6 +6,7 @@ export const DELETE_PRODUCT = 'DELETE_PRODUCT'
 
 export const GET_ALL_STORES = 'GET_ALL_STORES';
 export const GET_STORES_DETAIL = 'GET_STORES_DETAIL';
+export const POST_STORES = 'POST_STORES';
 
 
 

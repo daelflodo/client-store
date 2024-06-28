@@ -1,4 +1,4 @@
-import { GET_ALL_PRODUCTS, GET_ALL_STORES, GET_PRODUCT_DETAIL, GET_STORES_DETAIL, POST_PRODUCT } from "../actions/actions-types"
+import { GET_ALL_PRODUCTS, GET_ALL_STORES, GET_PRODUCT_DETAIL, GET_STORES_DETAIL, POST_PRODUCT, POST_STORES } from "../actions/actions-types"
 
 const initialState = {
     products: [],
@@ -33,6 +33,11 @@ const rootReducer = (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 storeDetail: payload,
+            }
+        case POST_STORES:
+            return {
+                ...state,
+                stores: [...state.stores, payload]
             }
         default:
             return { ...state }
