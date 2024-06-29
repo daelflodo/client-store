@@ -66,7 +66,7 @@ Estos ejemplos muestran cómo Tailwind CSS facilita la creación de interfaces c
 2. Instala las dependencias: `npm install`
 
 **Configuración del Backend:**
-Para conectar con el backend, puedes ir al repositorio del proyecto: `https://github.com/daelflodo/server-store`
+Para conectar con el backend, puedes ir al repositorio del proyecto: `https://github.com/daelflodo/server-store` 
 
 Para configurar la conexión con el backend, asegúrate de ajustar la configuración en el archivo `services/api.js`. Dependiendo de tu entorno, configura la baseURL adecuadamente:
 
@@ -101,6 +101,8 @@ Una vez configurado, puedes ejecutar el proyecto con el siguiente comando: ``npm
 
 
 Esto iniciará la aplicación en modo de desarrollo. Abre [http://localhost:3000](http://localhost:3000) para verla en el navegador.
+
+Puedes Puedes acceder al proyecto a través de [https://client-store.vercel.app/]( https://client-store.vercel.app/)
 
 ### Capturas de Pantalla
 
