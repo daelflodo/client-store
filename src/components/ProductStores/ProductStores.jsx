@@ -44,11 +44,11 @@ const ProductStores = ({ storeId }) => {
 
     return (
         <>
-            <div className="flex items-center justify-center space-x-2 mt-6">
+            <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-2 mt-6">
                 <select
                     value={selectedProduct}
                     onChange={(e) => setSelectedProduct(e.target.value)}
-                    className="text-sm px-4 py-2 border rounded-lg"
+                    className="text-sm px-4 py-2 border rounded-lg w-full sm:w-auto"
                 >
                     <option value="" disabled>Select Product</option>
                     {products?.map(product => (
@@ -57,14 +57,14 @@ const ProductStores = ({ storeId }) => {
                 </select>
                 <button
                     onClick={handleAddProduct}
-                    className="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-900"
+                    className="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-900"
                 >
                     Add Product
                 </button>
             </div>
 
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg py-10 px-5">
-                <h3 className="text-lg text-white ">Products in this store:</h3>
+                <h3 className="text-lg text-white">Products in this store:</h3>
                 <div className="grid grid-cols-1 py-5 sm:grid-cols-2 md:grid-cols-3 gap-4">
                     {storeProducts?.map(product => (
                         <div key={product.id} className="bg-gray-800 overflow-hidden shadow-md sm:rounded-lg border border-gray-600">
@@ -78,10 +78,10 @@ const ProductStores = ({ storeId }) => {
                                     Delete
                                 </button>
                                 <Link to={`/products/${product.id}`}>
-                                <button
-                                    className="font-medium text-green-600 dark:text-green-500 hover:underline mr-4">
-                                    Detail
-                                </button>
+                                    <button
+                                        className="font-medium text-green-600 dark:text-green-500 hover:underline mr-4">
+                                        Detail
+                                    </button>
                                 </Link>
                             </div>
                         </div>
