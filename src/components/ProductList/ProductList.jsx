@@ -17,7 +17,6 @@ function ProductList() {
                 {products?.map((product) => (
                     <div
                         key={product.id}
-                        // className="bg-gray-800 overflow-hidden shadow-md sm:rounded-lg border border-gray-600 text-white"
                         className="relative flex flex-col text-gray-700 bg-white shadow-md rounded-xl w-full max-w-sm mx-auto"
                     >
                         <div className="relative mx-4 mt-4 overflow-hidden rounded-xl h-64">

@@ -47,7 +47,6 @@ const rootReducer = (state = initialState, { type, payload }) => {
                 ...state,
                 productDetail: {
                     ...state.productDetail,
-                    // stores: [...state.productDetail.stores, payload],
                     stores: [...(state.productDetail.stores || []), payload],
                 },
             };

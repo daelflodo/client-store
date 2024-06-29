@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 
 const ProductStores = ({ storeId }) => {
     const dispatch = useDispatch();
-    const products = useSelector((state) => state.products.data); // All products
+    const products = useSelector((state) => state.products.data);
     const storesForProduct = useSelector((state) => state.storesForProduct);
-    const [storeProducts, setStoreProducts] = useState([]); // Products belonging to this store
+    const [storeProducts, setStoreProducts] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState('');
 
     useEffect(() => {

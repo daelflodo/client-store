@@ -9,14 +9,12 @@ export const getAllProducts = (page = 1, limit = 10) => {
     return async function (dispatch) {
         try {
             const { data } = await api.get(`api/products/all?page=${page}&limit=${limit}`);
-            // return 
             dispatch({
                 type: GET_ALL_PRODUCTS,
                 payload: data
             })
         } catch (error) {
             toast.error(error.response.data.error.message)
-            console.log(error.response.data.error.message);
         }
     }
 }
@@ -25,14 +23,12 @@ export const getProductDetail = (id) => {
     return async function (dispatch) {
         try {
             const { data } = await api.get(`api/products/${id}`);
-            // return 
             dispatch({
                 type: GET_PRODUCT_DETAIL,
                 payload: data
             })
         } catch (error) {
-            toast.error(error.response.data.error.error)
-            console.log("ERROR", error);
+            toast.error(error.response.data.error.message)
         }
     }
 }
@@ -53,7 +49,6 @@ export function postProduct(payload) {
                     toast.error(element)
                 )
             })
-            console.log("ERROR", error);
         }
     }
 }
@@ -71,7 +66,6 @@ export const updateProduct = (id, payload) => {
             toast.success('The product was updated successfully');
         } catch (error) {
             toast.error(error.response.data.error.message)
-            console.log("ERROR", error);
         }
     };
 };
@@ -115,7 +109,6 @@ export const getStoreDetail = (id) => {
             })
         } catch (error) {
             toast.error(error.response.data.error.message)
-            console.log("ERROR", error);
         }
     }
 }
@@ -136,7 +129,6 @@ export function postStores(payload) {
                     toast.error(element)
                 )
             })
-            console.log("ERROR", error);
         }
     }
 }
@@ -154,7 +146,6 @@ export const updateStore = (id, payload) => {
             toast.success('The stores was updated successfully');
         } catch (error) {
             toast.error(error.response.data.error.message)
-            console.log("ERROR", error);
         }
     };
 };
@@ -185,7 +176,6 @@ export const addStoreToProduct = (productId, storeId) => {
             toast.success('Store added to product successfully');
         } catch (error) {
             toast.error(error.response?.data.error.message);
-            console.error('Error adding store to product:', error);
         }
     };
 };
@@ -200,7 +190,6 @@ export const getStoresForProduct = (productId) => {
             });
         } catch (error) {
             toast.error(error.response.data.error.message);
-            console.error('Error', error);
         }
     };
 };
@@ -224,7 +213,6 @@ export const loginUser = (userData) => {
     return async (dispatch) => {
         try {
             const { data } = await api.post(`/api/auth/login`, userData);
-            console.log("DATA: ", data);
             const { accessToken, user } = data;
             if (accessToken && user) {
                 localStorage.setItem('accessToken', accessToken);
@@ -235,7 +223,7 @@ export const loginUser = (userData) => {
                         user: user
                     }
                 });
-                return toast.success(`Inicio de session exitoso con ${data.user.fullName}`); // Indica que el login fue exitoso
+                return toast.success(`Inicio de session exitoso con ${data.user.fullName}`);
             }
         } catch (error) {
             if (error.response.data.error.message[0] && error.response.data.error.statusCode === 400) {
@@ -243,7 +231,6 @@ export const loginUser = (userData) => {
             } else {
                 toast.error(`Error: ${error.response.data.error.message}`)
             }
-            console.log("ERROR", error.response.data);
         }
     }
 };
@@ -263,7 +250,6 @@ export function postRegister(payload) {
            } else {
                toast.error(`Error: ${error.response.data.error.message}`)
            }
-           console.log("ERROR", error.response.data);
         }
     }
 }
