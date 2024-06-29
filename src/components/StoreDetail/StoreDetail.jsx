@@ -4,6 +4,7 @@ import { deleteStore, getStoreDetail } from "../../redux/actions/actions";
 import { useNavigate, useParams } from "react-router-dom";
 import Modal from "react-modal";
 import StoreForm from "../StoreForm/StoreForm";
+import ProductStores from "../ProductStores/ProductStores";
 
 
 const StoreDetail = () => {
@@ -64,6 +65,7 @@ const StoreDetail = () => {
                                 </div>
                             </div>
                         </div>
+                        <ProductStores storeId={storeId} />
                     </div>
                 </div>
                 <Modal

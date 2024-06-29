@@ -1,10 +1,13 @@
-import { GET_ALL_PRODUCTS, GET_ALL_STORES, GET_PRODUCT_DETAIL, GET_STORES_DETAIL, POST_PRODUCT, POST_STORES } from "../actions/actions-types"
+import { ADD_STORE_TO_PRODUCT, GET_ALL_PRODUCTS, GET_ALL_STORES, GET_PRODUCT_DETAIL, GET_STORES_DETAIL, GET_STORES_FOR_PRODUCT, LOGIN, POST_PRODUCT, POST_STORES } from "../actions/actions-types"
 
 const initialState = {
     products: [],
     productDetail: "",
     stores: [],
     storeDetail: "",
+    storesForProduct: {},
+    user: null,
+    accessToken: null,
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -38,6 +41,29 @@ const rootReducer = (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 stores: [...state.stores, payload]
+            }
+        case ADD_STORE_TO_PRODUCT:
+            return {
+                ...state,
+                productDetail: {
+                    ...state.productDetail,
+                    // stores: [...state.productDetail.stores, payload],
+                    stores: [...(state.productDetail.stores || []), payload],
+                },
+            };
+        case GET_STORES_FOR_PRODUCT:
+            return {
+                ...state,
+                storesForProduct: {
+                    ...state.storesForProduct,
+                    [payload.productId]: payload.stores,
+                },
+            };
+        case LOGIN:
+            return {
+                ...state,
+                user: payload.user,
+                accessToken: payload.accessToken
             }
         default:
             return { ...state }

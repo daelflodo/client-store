@@ -1,5 +1,5 @@
 
-import { DELETE_PRODUCT, DELETE_STORES, GET_ALL_PRODUCTS, GET_ALL_STORES, GET_PRODUCT_DETAIL, GET_STORES_DETAIL, POST_PRODUCT, POST_STORES, UPDATE_PRODUCT, UPDATE_STORES } from './actions-types'
+import { ADD_STORE_TO_PRODUCT, DELETE_PRODUCT, DELETE_STORES, DELETE_STORES_FOR_PRODUCT, GET_ALL_PRODUCTS, GET_ALL_STORES, GET_PRODUCT_DETAIL, GET_STORES_DETAIL, GET_STORES_FOR_PRODUCT, LOGIN, POST_PRODUCT, POST_STORES, UPDATE_PRODUCT, UPDATE_STORES } from './actions-types'
 import api from '../../services/api';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -172,5 +172,79 @@ export const deleteStore = (id) => {
             toast.error(error.response.data.error.message)
         }
     };
+};
+
+export const addStoreToProduct = (productId, storeId) => {
+    return async (dispatch) => {
+        try {
+            const { data } = await api.post(`api/products/${productId}/store/${storeId}`);
+            dispatch({
+                type: ADD_STORE_TO_PRODUCT,
+                payload: data,
+            });
+            toast.success('Store added to product successfully');
+        } catch (error) {
+            toast.error(error.response?.data.error.message);
+            console.error('Error adding store to product:', error);
+        }
+    };
+};
+
+export const getStoresForProduct = (productId) => {
+    return async (dispatch) => {
+        try {
+            const { data } = await api.get(`api/products/${productId}/stores`);
+            dispatch({
+                type: GET_STORES_FOR_PRODUCT,
+                payload: { productId, stores: data },
+            });
+        } catch (error) {
+            toast.error(error.response.data.error.message);
+            console.error('Error', error);
+        }
+    };
+};
+
+export const deleteStoreToProduct = (productId, storeId) => {
+    return async (dispatch) => {
+        try {
+            const { data } = await api.delete(`api/products/${productId}/stores/${storeId}`);
+            dispatch({
+                type: DELETE_STORES_FOR_PRODUCT,
+                payload: data
+            });
+            toast.success('Se Elimino el producto de la tienda')
+        } catch (error) {
+            toast.error(error.response.data.error.message)
+        }
+    };
+};
+
+export const loginUser = (userData) => {
+    return async (dispatch) => {
+        try {
+            const { data } = await api.post(`/api/auth/login`, userData);
+            console.log("DATA: ", data);
+            const { accessToken, user } = data;
+            if (accessToken && user) {
+                localStorage.setItem('accessToken', accessToken);
+                dispatch({
+                    type: LOGIN,
+                    payload: {
+                        accessToken: accessToken,
+                        user: user
+                    }
+                });
+                return toast.success(`Inicio de session exitoso con ${data.user.fullName}`); // Indica que el login fue exitoso
+            }
+        } catch (error) {
+            if (error.response.data.error.message[0] && error.response.data.error.statusCode === 400) {
+                 toast.error('Missing Data')
+            } else {
+                toast.error(`Error: ${error.response.data.error.message}`)
+            }
+            console.log("ERROR", error.response.data);
+        }
+    }
 };
 
