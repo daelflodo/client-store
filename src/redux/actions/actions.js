@@ -1,5 +1,5 @@
 
-import { ADD_STORE_TO_PRODUCT, DELETE_PRODUCT, DELETE_STORES, DELETE_STORES_FOR_PRODUCT, GET_ALL_PRODUCTS, GET_ALL_STORES, GET_PRODUCT_DETAIL, GET_STORES_DETAIL, GET_STORES_FOR_PRODUCT, LOGIN, POST_PRODUCT, POST_STORES, UPDATE_PRODUCT, UPDATE_STORES } from './actions-types'
+import { ADD_STORE_TO_PRODUCT, DELETE_PRODUCT, DELETE_STORES, DELETE_STORES_FOR_PRODUCT, GET_ALL_PRODUCTS, GET_ALL_STORES, GET_PRODUCT_DETAIL, GET_STORES_DETAIL, GET_STORES_FOR_PRODUCT, LOGIN, POST_PRODUCT, POST_STORES, REGISTER, UPDATE_PRODUCT, UPDATE_STORES } from './actions-types'
 import api from '../../services/api';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -247,4 +247,24 @@ export const loginUser = (userData) => {
         }
     }
 };
+
+export function postRegister(payload) {
+    return async function (dispatch) {
+        try {
+            await api.post('api/user/create', payload);
+            dispatch({
+                type: REGISTER,
+                payload: payload
+            })
+            toast.success('Successfully registered user');
+        } catch (error) {
+            if (error.response.data.error.message[0] && error.response.data.error.statusCode === 400) {
+                toast.error('Missing Data')
+           } else {
+               toast.error(`Error: ${error.response.data.error.message}`)
+           }
+           console.log("ERROR", error.response.data);
+        }
+    }
+}
 
