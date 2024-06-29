@@ -106,17 +106,17 @@ Esto iniciará la aplicación en modo de desarrollo. Abre [http://localhost:3000
 
 Aquí se muestran capturas de pantalla de la aplicación en funcionamiento:
 
-1. **Página de Listado de Productos:**
+1. **Página de Listado de Productos:**\
   ![alt text](image-1.png)
 
-2. **Detalle de Producto:**
+2. **Detalle de Producto:**\
    ![alt text](image-2.png)
 
-3. **Formulario de Producto:**
+3. **Formulario de Producto:**\
    ![alt text](image-3.png)
 
-4. **Página de Listado de Tiendas:**
+4. **Página de Listado de Tiendas:**\
    ![alt text](image-4.png)
 
-5. **Detalle de Tienda:**
+5. **Detalle de Tienda:**\
    ![alt text](image-5.png)
