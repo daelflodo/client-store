@@ -1,70 +1,122 @@
-# Getting Started with Create React App
+### Tecnologías Utilizadas y Elección
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+El proyecto ha sido desarrollado utilizando las siguientes tecnologías principales, seleccionadas por las siguientes razones:
 
-## Available Scripts
+- **React**: Se eligió React debido a su eficiencia en la creación de interfaces de usuario dinámicas y su popularidad en el desarrollo de aplicaciones web modernas. React permite la creación de componentes reutilizables que facilitan el mantenimiento y escalabilidad del proyecto.
 
-In the project directory, you can run:
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/640px-React-icon.svg.png" alt="React" width="100">
 
-### `npm start`
+- **Redux**: Redux fue elegido para la gestión del estado global de la aplicación debido a su capacidad para manejar de manera predecible el flujo de datos en aplicaciones complejas. Facilita la centralización del estado, lo que es crucial para mantener la coherencia de datos en toda la aplicación.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+  <img src="https://redux.js.org/img/redux.svg" alt="Redux" width="100">
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Tailwind CSS**: Tailwind CSS se seleccionó por su enfoque en la construcción de interfaces de usuario mediante clases utilitarias. Esto permite un estilo rápido y coherente sin la necesidad de escribir CSS personalizado extenso, lo que acelera el desarrollo y facilita el mantenimiento del estilo.
 
-### `npm test`
+  <img src="https://seeklogo.com/images/T/tailwind-css-logo-5AD4175897-seeklogo.com.png" alt="Tailwind CSS" width="100">
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **JavaScript**: Como lenguaje base, JavaScript fue elegido por su versatilidad y amplio soporte en el desarrollo web. Proporciona las funcionalidades esenciales para la lógica de la aplicación del lado del cliente y la interacción dinámica con los usuarios.
 
-### `npm run build`
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/640px-Unofficial_JavaScript_logo_2.svg.png" alt="JavaScript" width="100">
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Estas tecnologías fueron seleccionadas por sus capacidades individuales para mejorar la eficiencia del desarrollo, la escalabilidad del proyecto y la capacidad de mantenimiento a largo plazo.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+### Implementación de Estilos
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+**Tecnología de Estilos:**
+Utilizamos Tailwind CSS para la implementación de estilos en este proyecto. Elegimos Tailwind CSS por su enfoque en la utilidad y la capacidad de mantener un diseño coherente a lo largo de la aplicación sin la necesidad de escribir CSS personalizado extenso.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**Aplicación de Estilos:**
+Hemos aplicado clases de Tailwind CSS directamente en nuestros componentes React para definir la apariencia y el diseño. Esto nos ha permitido crear rápidamente componentes con estilos consistentes y responsivos.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Ejemplo de uso de Tailwind CSS en un componente:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```jsx
+import React from 'react';
 
-## Learn More
+const ExampleComponent = () => {
+  return (
+    <div className="bg-gray-800 p-4 rounded-lg shadow-md">
+      <h2 className="text-white text-lg font-bold">Ejemplo de Componente</h2>
+      <p className="text-gray-300 mt-2">Este es un ejemplo de cómo aplicamos estilos con Tailwind CSS.</p>
+    </div>
+  );
+};
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+export default ExampleComponent;
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+#### Diseño Coherente y Atractivo
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Se ha aplicado un diseño coherente y atractivo en toda la aplicación utilizando las clases de Tailwind CSS. A continuación, se muestran ejemplos de cómo se han aplicado los estilos en algunos componentes clave:
 
-### Analyzing the Bundle Size
+- **Navbar**: Utiliza clases como `bg-gray-800`, `text-white`, y `flex items-center` para un diseño claro y funcional.
+  
+- **Listado de Productos**: Cada producto está contenido en un componente con clases como `bg-white`, `shadow-md`, y `rounded-xl` para un aspecto limpio y moderno.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- **Formularios**: Los formularios hacen uso de clases como `px-4 py-2`, `border`, y `rounded-lg` para asegurar una presentación uniforme y accesible.
 
-### Making a Progressive Web App
+Estos ejemplos muestran cómo Tailwind CSS facilita la creación de interfaces coherentes y estéticamente agradables en toda la aplicación.
+### Configuración y Ejecución del Proyecto
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+**Instalación de Dependencias:**
+1. Clona este repositorio: `git clone https://github.com/daelflodo/client-store.git`
+2. Instala las dependencias: `npm install`
 
-### Advanced Configuration
+**Configuración del Backend:**
+Para conectar con el backend, puedes ir al repositorio del proyecto: `https://github.com/daelflodo/server-store`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Para configurar la conexión con el backend, asegúrate de ajustar la configuración en el archivo `services/api.js`. Dependiendo de tu entorno, configura la baseURL adecuadamente:
 
-### Deployment
+```javascript
+const api = axios.create({
+  // baseURL: 'http://localhost:8080/', // URL de tu backend en Localhost
+  baseURL: 'https://server-store-sob3.onrender.com/', // URL de tu backend desplegado
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+```
+Asegúrate de comentar/descomentar la línea baseURL según estés trabajando en local o conectándote a tu backend desplegado. Esta configuración permite que tu frontend se comunique correctamente con el backend correspondiente.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Estructura del Proyecto
 
-### `npm run build` fails to minify
+El proyecto está organizado de la siguiente manera:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- **`common/`**: Contiene archivos compartidos como constantes y validaciones para los formularios.
+
+- **`components/`**: Aquí se encuentran todos los componentes de React organizados por funcionalidad (por ejemplo, `ProductList`, `ProductDetail`, `StoreList`, etc.).
+
+- **`redux/`**: Contiene la configuración de Redux, incluyendo acciones (`actions/`) y el reducer (`reducer/`). El archivo `store.js` configura el store Redux centralizado para la aplicación.
+
+- **`services/`**: Contiene el archivo `api.js` que configura la conexión con el backend a través de Axios, como se mencionó anteriormente.
+
+Esta estructura organizada facilita el mantenimiento y la expansión del proyecto al separar claramente las responsabilidades y funcionalidades de cada parte del sistema.
+
+
+**Ejecución del Proyecto:**
+Una vez configurado, puedes ejecutar el proyecto con el siguiente comando: ``npm start``
+
+
+Esto iniciará la aplicación en modo de desarrollo. Abre [http://localhost:3000](http://localhost:3000) para verla en el navegador.
+
+### Capturas de Pantalla
+
+Aquí se muestran capturas de pantalla de la aplicación en funcionamiento:
+
+1. **Página de Listado de Productos:**
+  ![alt text](image-1.png)
+
+2. **Detalle de Producto:**
+   ![alt text](image-2.png)
+
+3. **Formulario de Producto:**
+   ![alt text](image-3.png)
+
+4. **Página de Listado de Tiendas:**
+   ![alt text](image-4.png)
+
+5. **Detalle de Tienda:**
+   ![alt text](image-5.png)
