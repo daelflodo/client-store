@@ -28,7 +28,7 @@ const ProductDetail = () => {
         setIsModalOpen(false);
     };
 
-   // Llamada a la función en el manejo de borrado del componente ProductDetail
+
 const handleDelete = (productId) => {
     const message = "Are you sure you want to remove this product?";
     confirmDelete({

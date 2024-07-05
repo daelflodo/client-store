@@ -75,7 +75,7 @@ const ProductForm = ({ product, closeModal, isUpdating }) => {
                 ...formDataProduct,
                 image: imageUrl
             });
-            setErrorImage(""); // Limpiar el error cuando se carga la imagen correctamente
+            setErrorImage(""); 
         } catch (error) {
             console.error("Error uploading image: ", error);
             toast.error("Error uploading image");

@@ -1,6 +1,5 @@
 import { confirmAlert } from 'react-confirm-alert';
 
-// Función reutilizable para el confirmAlert
 const confirmDelete = ({ message, onConfirm }) => {
     confirmAlert({
         customUI: ({ onClose }) => (

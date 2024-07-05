@@ -33,7 +33,7 @@ const RegisterUser = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        // Validar todo el formulario antes de enviar
+
         const validationErrors = validationRegister(registerData);
         setErrorRegister(validationErrors);
 

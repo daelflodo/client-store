@@ -56,29 +56,6 @@ export function postProduct(payload) {
     };
 }
 
-// export function postProduct(payload) {
-//     return async function (dispatch) {
-//         try {
-//             await api.post('api/products/create', payload);
-//             dispatch({
-//                 type: POST_PRODUCT,
-//                 payload: payload
-//             });
-//             toast.success('Product created successfully');
-//         } catch (error) {
-//             const errorData = error.response?.data.error.message;
-//             if (Array.isArray(errorData)) {
-//                 errorData.forEach((element) => {
-//                     toast.error(element);
-//                 });
-//             } else if (typeof errorData === 'string') {
-//                 toast.error(errorData);
-//             } else {
-//                 toast.error('Failed to create product');
-//             }
-//         }
-//     };
-// }
 
 export const updateProduct = (id, payload) => {
     return async (dispatch) => {

@@ -29,8 +29,6 @@ const Login = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
-        // Validar todo el formulario antes de enviar
         const validationErrors = validationLogin(loginData);
         setErrorLogin(validationErrors);
 
