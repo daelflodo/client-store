@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { postStores, updateStore } from "../../redux/actions/actions";
+import { getAllStores, postStores, updateStore } from "../../redux/actions/actions";
 import validationFormStore from "../../common/Validation/validationFormStore";
 import { toast } from "react-toastify";
 
@@ -27,6 +27,7 @@ const StoreForm = ({ store, closeModal, isUpdating }) => {
             dispatch(updateStore(store.id, formDataStore));
         } else {
             dispatch(postStores(formDataStore));
+            dispatch(getAllStores())
         }
 
         setFormDataStore({

@@ -22,6 +22,7 @@ const ProductDetail = () => {
     };
 
     const closeModal = () => {
+        dispatch(getProductDetail(productId))
         setIsModalOpen(false);
     };
 

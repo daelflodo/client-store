@@ -43,8 +43,8 @@ export function postProduct(payload) {
             })
             toast.success('Product created successfully');
         } catch (error) {
-            const errorData = error.response.data.error.message;
-            errorData.map((element) => {
+            const errorData = error.response?.data.error.message;
+            errorData?.map((element) => {
                 return (
                     toast.error(element)
                 )
@@ -76,11 +76,11 @@ export const deleteProduct = (id) => {
             const { data } = await api.delete(`api/products/delete/${id}`);
             dispatch({
                 type: DELETE_PRODUCT,
-                payload: data
+                payload: id
             });
             toast.success(data.message)
         } catch (error) {
-            toast.error(error.response.data.error.message)
+            toast.error(error.response?.data.error.message)
         }
     };
 };
@@ -156,7 +156,7 @@ export const deleteStore = (id) => {
             const { data } = await api.delete(`api/stores/delete/${id}`);
             dispatch({
                 type: DELETE_STORES,
-                payload: data
+                payload: id
             });
             toast.success(data.message)
         } catch (error) {
@@ -227,7 +227,7 @@ export const loginUser = (userData) => {
             }
         } catch (error) {
             if (error.response.data.error.message[0] && error.response.data.error.statusCode === 400) {
-                 toast.error('Missing Data')
+                toast.error('Missing Data')
             } else {
                 toast.error(`Error: ${error.response.data.error.message}`)
             }
@@ -247,9 +247,9 @@ export function postRegister(payload) {
         } catch (error) {
             if (error.response.data.error.message[0] && error.response.data.error.statusCode === 400) {
                 toast.error('Missing Data')
-           } else {
-               toast.error(`Error: ${error.response.data.error.message}`)
-           }
+            } else {
+                toast.error(`Error: ${error.response.data.error.message}`)
+            }
         }
     }
 }

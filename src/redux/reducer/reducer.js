@@ -1,4 +1,4 @@
-import { ADD_STORE_TO_PRODUCT, GET_ALL_PRODUCTS, GET_ALL_STORES, GET_PRODUCT_DETAIL, GET_STORES_DETAIL, GET_STORES_FOR_PRODUCT, LOGIN, POST_PRODUCT, POST_STORES } from "../actions/actions-types"
+import { ADD_STORE_TO_PRODUCT, DELETE_PRODUCT, DELETE_STORES, GET_ALL_PRODUCTS, GET_ALL_STORES, GET_PRODUCT_DETAIL, GET_STORES_DETAIL, GET_STORES_FOR_PRODUCT, LOGIN, POST_PRODUCT, POST_STORES } from "../actions/actions-types"
 
 const initialState = {
     products: [],
@@ -27,6 +27,11 @@ const rootReducer = (state = initialState, { type, payload }) => {
                 ...state,
                 products: [...state.products, payload]
             }
+        case DELETE_PRODUCT:
+            return {
+                ...state,
+                products: state.products.filter(product=> product.id !== payload)
+            }
         case GET_ALL_STORES:
             return {
                 ...state,
@@ -41,6 +46,11 @@ const rootReducer = (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 stores: [...state.stores, payload]
+            }
+        case DELETE_STORES:
+            return {
+                ...state,
+                stores: state.stores.filter(store=> store.id !== payload)
             }
         case ADD_STORE_TO_PRODUCT:
             return {

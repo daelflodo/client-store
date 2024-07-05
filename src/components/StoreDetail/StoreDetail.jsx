@@ -5,12 +5,24 @@ import { useNavigate, useParams } from "react-router-dom";
 import Modal from "react-modal";
 import StoreForm from "../StoreForm/StoreForm";
 import ProductStores from "../ProductStores/ProductStores";
+import { toast } from "react-toastify";
 
 const StoreDetail = () => {
     const { id: storeId } = useParams();
     const dispatch = useDispatch();
     const storeDetail = useSelector((state) => state.storeDetail);
     const navigate = useNavigate();
+
+    const products = useSelector((state) => state.products.data);
+    const storesForProduct = useSelector((state) => state.storesForProduct);
+    const [hasProduct, setHasProduct] = useState(false);
+
+    useEffect(() => {
+        const storeHAsProduct = products?.some((product) => {
+            return storesForProduct[product.id]?.some(store => store.id === storeId)
+        })
+        setHasProduct(storeHAsProduct)
+    }, [products, storesForProduct, storeId])
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -27,8 +39,12 @@ const StoreDetail = () => {
     };
 
     const handleDeleteStore = (storeId) => {
-        dispatch(deleteStore(storeId));
-        navigate('/stores');
+        if (!hasProduct) {
+            dispatch(deleteStore(storeId));
+            navigate('/stores');
+        }else{
+            toast.error('Can`t delete store with associated products')
+        }
     };
 
     return (
