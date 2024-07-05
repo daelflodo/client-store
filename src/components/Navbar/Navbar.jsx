@@ -4,7 +4,7 @@ import { useLocation, Link, useNavigate } from 'react-router-dom';
 const Navbar = () => {
     const location = useLocation();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
     const token = localStorage.getItem('accessToken');
 
     const toggleMenu = () => {
@@ -55,6 +55,10 @@ const Navbar = () => {
                         <li>
                             <Link to="/stores" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Store</Link>
                         </li>
+                    </ul>
+                </div>
+                <div className={`items-center ${isMenuOpen ? 'block' : 'hidden'} w-full md:flex md:w-auto md:order-3`} id="navbar-auth">
+                    <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                         {!token && (
                             <>
                                 <li>
