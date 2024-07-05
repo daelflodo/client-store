@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addStoreToProduct, deleteStoreToProduct, getAllProducts, getStoresForProduct } from "../../redux/actions/actions";
 import { Link } from "react-router-dom";
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import confirmDelete from "../../common/utils/ConfirmAlert";
 
 const ProductStores = ({ storeId }) => {
     const dispatch = useDispatch();
@@ -38,8 +41,14 @@ const ProductStores = ({ storeId }) => {
     };
 
     const handleDeleteStoreToProduct = (productId) => {
-        dispatch(deleteStoreToProduct(productId, storeId));
-        dispatch(getAllProducts());
+        const message = "Are you sure you want to remove this product from the store?";
+        confirmDelete({
+            message,
+            onConfirm: () => {
+                dispatch(deleteStoreToProduct(productId, storeId));
+                dispatch(getAllProducts());
+            }
+        });
     };
 
     return (
@@ -74,12 +83,14 @@ const ProductStores = ({ storeId }) => {
                             <div className="px-6 py-4 bg-gray-700 dark:bg-gray-900 flex justify-end">
                                 <button
                                     onClick={() => handleDeleteStoreToProduct(product.id)}
-                                    className="font-medium text-red-600 dark:text-red-500 hover:underline mr-4">
+                                    className="font-medium text-red-600 dark:text-red-500 hover:underline mr-4"
+                                >
                                     Delete
                                 </button>
                                 <Link to={`/products/${product.id}`}>
                                     <button
-                                        className="font-medium text-green-600 dark:text-green-500 hover:underline mr-4">
+                                        className="font-medium text-green-600 dark:text-green-500 hover:underline mr-4"
+                                    >
                                         Detail
                                     </button>
                                 </Link>

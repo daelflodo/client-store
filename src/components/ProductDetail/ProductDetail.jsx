@@ -4,6 +4,8 @@ import { deleteProduct, getProductDetail } from "../../redux/actions/actions";
 import { useNavigate, useParams } from "react-router-dom";
 import Modal from "react-modal";
 import ProductForm from "../ProductForm/ProductForm";
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import confirmDelete from "../../common/utils/ConfirmAlert";
 
 const ProductDetail = () => {
     const { id: productId } = useParams();
@@ -22,14 +24,21 @@ const ProductDetail = () => {
     };
 
     const closeModal = () => {
-        dispatch(getProductDetail(productId))
+        dispatch(getProductDetail(productId));
         setIsModalOpen(false);
     };
 
-    const handleDelete = (productId) => {
-        dispatch(deleteProduct(productId));
-        navigate('/products');
-    };
+   // Llamada a la función en el manejo de borrado del componente ProductDetail
+const handleDelete = (productId) => {
+    const message = "Are you sure you want to remove this product?";
+    confirmDelete({
+        message,
+        onConfirm: () => {
+            dispatch(deleteProduct(productId));
+            navigate('/products');
+        }
+    });
+};
 
     return (
         <div className="container mx-auto pt-8 px-4">
@@ -55,15 +64,15 @@ const ProductDetail = () => {
                             alt={productDetail.name}
                             className="w-full lg:w-2/5 h-auto object-cover object-center rounded-lg shadow-md"
                         />
-                        <div className="w-full">
+                        <div className="w-full lg:w-3/5">
                             <div className="bg-gray-700 p-4 rounded-lg shadow-md">
-                                <h2 className="text-2xl font-semibold text-gray-200 mb-4">
+                                <h2 className="text-2xl font-semibold text-gray-200 mb-4 break-words overflow-hidden">
                                     {productDetail.name}
                                 </h2>
-                                <table className="min-w-full divide-y divide-gray-400">
+                                <table className="min-w-full divide-y divide-gray-400 table-fixed">
                                     <tbody className="bg-gray-700 divide-y divide-gray-400">
                                         <tr>
-                                            <td className="px-6 py-4 whitespace-nowrap">
+                                            <td className="px-6 py-4 whitespace-normal break-words">
                                                 <div className="text-sm text-gray-200">Name</div>
                                                 <div className="text-lg font-medium text-white">{productDetail.name}</div>
                                             </td>
