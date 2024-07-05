@@ -23,6 +23,9 @@ const rootReducer = (state = initialState, { type, payload }) => {
                 productDetail: payload,
             }
         case POST_PRODUCT:
+            if (!Array.isArray(state.products)) {
+                return state;
+            }
             return {
                 ...state,
                 products: [...state.products, payload]
