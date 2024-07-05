@@ -6,7 +6,6 @@ const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const navigate = useNavigate(); 
     const token = localStorage.getItem('accessToken');
-    console.log(token);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);

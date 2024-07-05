@@ -40,17 +40,21 @@ export function postProduct(payload) {
             dispatch({
                 type: POST_PRODUCT,
                 payload: payload
-            })
+            });
             toast.success('Product created successfully');
         } catch (error) {
             const errorData = error.response?.data.error.message;
-            errorData?.map((element) => {
-                return (
-                    toast.error(element)
-                )
-            })
+            if (Array.isArray(errorData)) {
+                errorData.forEach((element) => {
+                    toast.error(element);
+                });
+            } else if (typeof errorData === 'string') {
+                toast.error(errorData);
+            } else {
+                toast.error('Failed to create product');
+            }
         }
-    }
+    };
 }
 
 export const updateProduct = (id, payload) => {
@@ -202,7 +206,7 @@ export const deleteStoreToProduct = (productId, storeId) => {
                 type: DELETE_STORES_FOR_PRODUCT,
                 payload: data
             });
-            toast.success('Se Elimino el producto de la tienda')
+            toast.success('The product was removed from the store')
         } catch (error) {
             toast.error(error.response.data.error.message)
         }

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getAllStores, postStores, updateStore } from "../../redux/actions/actions";
+import { getAllStores, getStoreDetail, postStores, updateStore } from "../../redux/actions/actions";
 import validationFormStore from "../../common/Validation/validationFormStore";
 import { toast } from "react-toastify";
 
@@ -11,23 +11,25 @@ const StoreForm = ({ store, closeModal, isUpdating }) => {
         name: store ? store.name : "",
         city: store ? store.city : "",
         address: store ? store.address : "",
-
     });
 
-    const [errorFormStore, setErrorFormStore] = useState({})
+    const [errorName, setErrorName] = useState("");
+    const [errorCity, setErrorCity] = useState("");
+    const [errorAddress, setErrorAddress] = useState("");
 
     const handleSubmit = (event) => {
-        event.preventDefault()
-        if (Object.keys(errorFormStore).length !== 0) {
+        event.preventDefault();
+        if (errorName || errorCity || errorAddress) {
             toast.error('Missing data');
-            return
+            return;
         }
 
         if (isUpdating) {
             dispatch(updateStore(store.id, formDataStore));
+            dispatch(getStoreDetail(store.id))
         } else {
             dispatch(postStores(formDataStore));
-            dispatch(getAllStores())
+            dispatch(getAllStores());
         }
 
         setFormDataStore({
@@ -39,7 +41,8 @@ const StoreForm = ({ store, closeModal, isUpdating }) => {
         if (isUpdating) {
             closeModal();
         }
-    }
+    };
+
     const handleChange = (event) => {
         const { name, value } = event.target;
         setFormDataStore({
@@ -47,17 +50,28 @@ const StoreForm = ({ store, closeModal, isUpdating }) => {
             [name]: value
         });
 
-        setErrorFormStore(validationFormStore({
-            ...formDataStore,
-            [event.target.name]: event.target.value
-        }))
+        validateField(name, value);
+    };
+
+    const validateField = (fieldName, value) => {
+        switch (fieldName) {
+            case 'name':
+                setErrorName(validationFormStore({ ...formDataStore, [fieldName]: value })[fieldName]);
+                break;
+            case 'city':
+                setErrorCity(validationFormStore({ ...formDataStore, [fieldName]: value })[fieldName]);
+                break;
+            case 'address':
+                setErrorAddress(validationFormStore({ ...formDataStore, [fieldName]: value })[fieldName]);
+                break;
+            default:
+                break;
+        }
     };
 
     return (
-
         <section className="bg-gray-50 dark:bg-gray-700">
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-
                 <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
@@ -70,7 +84,7 @@ const StoreForm = ({ store, closeModal, isUpdating }) => {
                                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                     Name
                                 </label>
-                                {errorFormStore.name && <p style={{ color: "red" }}>{errorFormStore.name}</p>}
+                                {errorName && <p style={{ color: "red" }}>{errorName}</p>}
                                 <input
                                     value={formDataStore.name}
                                     onChange={handleChange}
@@ -86,7 +100,7 @@ const StoreForm = ({ store, closeModal, isUpdating }) => {
                                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                     City
                                 </label>
-                                {errorFormStore.city && <p style={{ color: "red" }}>{errorFormStore.city}</p>}
+                                {errorCity && <p style={{ color: "red" }}>{errorCity}</p>}
                                 <input
                                     value={formDataStore.city}
                                     onChange={handleChange}
@@ -101,7 +115,7 @@ const StoreForm = ({ store, closeModal, isUpdating }) => {
                                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                     Address
                                 </label>
-                                {errorFormStore.address && <p style={{ color: "red" }}>{errorFormStore.address}</p>}
+                                {errorAddress && <p style={{ color: "red" }}>{errorAddress}</p>}
                                 <input
                                     value={formDataStore.address}
                                     onChange={handleChange}
@@ -122,8 +136,7 @@ const StoreForm = ({ store, closeModal, isUpdating }) => {
                 </div>
             </div>
         </section>
-
     );
-}
+};
 
 export default StoreForm;

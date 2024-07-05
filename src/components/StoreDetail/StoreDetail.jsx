@@ -18,11 +18,11 @@ const StoreDetail = () => {
     const [hasProduct, setHasProduct] = useState(false);
 
     useEffect(() => {
-        const storeHAsProduct = products?.some((product) => {
+        const storeHasProduct = products?.some((product) => {
             return storesForProduct[product.id]?.some(store => store.id === storeId)
         })
-        setHasProduct(storeHAsProduct)
-    }, [products, storesForProduct, storeId])
+        setHasProduct(storeHasProduct);
+    }, [products, storesForProduct, storeId]);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -35,6 +35,7 @@ const StoreDetail = () => {
     };
 
     const closeModal = () => {
+        dispatch(getStoreDetail(storeId))
         setIsModalOpen(false);
     };
 
@@ -42,15 +43,15 @@ const StoreDetail = () => {
         if (!hasProduct) {
             dispatch(deleteStore(storeId));
             navigate('/stores');
-        }else{
-            toast.error('Can`t delete store with associated products')
+        } else {
+            toast.error('Cannot delete store with associated products');
         }
     };
 
     return (
         <div className="container mx-auto pt-8 px-4">
             <div className="flex flex-col items-center bg-gray-800 p-8 rounded-lg shadow-lg w-full lg:w-3/4 mx-auto">
-                <div className="flex justify-between w-full mb-4">
+                <div className="flex justify-end w-full mb-4">
                     <button
                         onClick={openModal}
                         className="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
@@ -69,13 +70,16 @@ const StoreDetail = () => {
                         <div className="min-w-full divide-y divide-gray-400">
                             <div className="bg-gray-700 divide-y divide-gray-400 flex flex-col lg:flex-row">
                                 <div className="px-6 py-4 flex-1">
-                                    <div className="text-sm text-gray-200 break-words">Name: {storeDetail.name}</div>
+                                    <div className="text-sm text-gray-200">Name:</div>
+                                    <div className="text-lg font-medium text-white">{storeDetail.name}</div>
                                 </div>
                                 <div className="px-6 py-4 flex-1">
-                                    <div className="text-sm text-gray-200 break-words">City: {storeDetail.city}</div>
+                                    <div className="text-sm text-gray-200">City:</div>
+                                    <div className="text-lg font-medium text-white">{storeDetail.city}</div>
                                 </div>
                                 <div className="px-6 py-4 flex-1">
-                                    <div className="text-sm text-gray-200 break-words">Address: {storeDetail.address}</div>
+                                    <div className="text-sm text-gray-200">Address:</div>
+                                    <div className="text-lg font-medium text-white">{storeDetail.address}</div>
                                 </div>
                             </div>
                         </div>
@@ -85,7 +89,8 @@ const StoreDetail = () => {
                 <Modal
                     isOpen={isModalOpen}
                     onRequestClose={closeModal}
-                    className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 h-auto mx-auto my-auto p-5"
+                    className="w-full md:w-2/3 lg:w-3/4 xl:w-4/5 h-auto mx-auto my-auto p-2 bg-white rounded-lg shadow-lg"
+                    overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
                 >
                     <StoreForm
                         store={storeDetail}

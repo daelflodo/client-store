@@ -1,18 +1,18 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../../redux/actions/actions";
 import { Link } from "react-router-dom";
 
 function ProductList() {
     const dispatch = useDispatch();
-
     const products = useSelector((state) => state.products.data);
 
     useEffect(() => {
-        dispatch(getAllProducts())
-    }, [ dispatch ])
+        dispatch(getAllProducts());
+    }, [dispatch]);
+
     return (
-        <div className="container  mx-auto pt-4 sm:pt-6 px-4 sm:px-6 md:px-8 lg:px-10">
+        <div className="container mx-auto pt-4 sm:pt-6 px-4 sm:px-6 md:px-8 lg:px-10">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
                 {products?.map((product) => (
                     <div
@@ -27,14 +27,12 @@ function ProductList() {
                             />
                         </div>
                         <div className="p-6">
-                            <div className="flex items-center justify-between mb-2">
-                                <p className="text-base font-medium text-blue-gray-900">
-                                    {product.name}
-                                </p>
-                                <p className="text-base font-medium text-blue-gray-900">
-                                    ${product.price}
-                                </p>
-                            </div>
+                            <p className="text-base font-medium text-blue-gray-900 overflow-hidden overflow-ellipsis whitespace-nowrap">
+                                {product.name}
+                            </p>
+                            <p className="text-base font-medium text-blue-gray-900">
+                                ${product.price}
+                            </p>
                         </div>
                         <div className="p-6 pt-0">
                             <Link title="Detail Product" to={`/products/${product.id}`}>
@@ -52,4 +50,5 @@ function ProductList() {
         </div>
     );
 }
-export default ProductList
+
+export default ProductList;

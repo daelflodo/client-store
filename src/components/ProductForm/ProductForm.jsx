@@ -1,53 +1,41 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { postProduct, updateProduct } from "../../redux/actions/actions";
+import { getProductDetail, postProduct, updateProduct } from "../../redux/actions/actions";
 import { toast } from "react-toastify";
 import validationFormProduct from '../../common/Validation/validationFormProduct'
-import axios from "axios"; // Si necesitas hacer peticiones HTTP
+import axios from "axios";
 
 const ProductForm = ({ product, closeModal, isUpdating }) => {
     const dispatch = useDispatch();
+
     const [formDataProduct, setFormDataProduct] = useState({
         name: product ? product.name : "",
         price: product ? product.price : "",
         type: product ? product.type : "Perecedero",
         image: product ? product.image : ""
     });
-    const [errorFormProduct, setErrorFormProduct] = useState({});
 
-    // Función para manejar la carga de imágenes a Cloudinary
-    const handleImageUpload = async (event) => {
-        const file = event.target.files[0];
-        const formData = new FormData();
-        formData.append("file", file);
-        formData.append("upload_preset", "product_upload");
-
-        try {
-            const res = await axios.post(
-                "https://api.cloudinary.com/v1_1/dyjg05g3r/image/upload",
-                formData
-            );
-            const imageUrl = res.data.secure_url;
-            setFormDataProduct({
-                ...formDataProduct,
-                image: imageUrl
-            });
-        } catch (error) {
-            console.error("Error uploading image: ", error);
-            toast.error("Error uploading image");
-        }
-    };
+    const [errorName, setErrorName] = useState("");
+    const [errorPrice, setErrorPrice] = useState("");
+    const [errorType, setErrorType] = useState("");
+    const [errorImage, setErrorImage] = useState("");
 
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        if (Object.keys(errorFormProduct).length !== 0) {
+        if (errorName || errorPrice || errorType) {
             toast.error("Missing data");
+            return;
+        }
+
+        if (!formDataProduct.image) {
+            setErrorImage("Selecione una imagen");
             return;
         }
 
         if (isUpdating) {
             dispatch(updateProduct(product.id, formDataProduct));
+            dispatch(getProductDetail(product.id))
             closeModal();
         } else {
             dispatch(postProduct(formDataProduct));
@@ -68,10 +56,46 @@ const ProductForm = ({ product, closeModal, isUpdating }) => {
             [name]: value
         });
 
-        setErrorFormProduct(validationFormProduct({
-            ...formDataProduct,
-            [event.target.name]: event.target.value
-        }));
+        validateField(name, value);
+    };
+
+    const handleImageUpload = async (event) => {
+        const file = event.target.files[0];
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("upload_preset", "product_upload");
+
+        try {
+            const res = await axios.post(
+                "https://api.cloudinary.com/v1_1/dyjg05g3r/image/upload",
+                formData
+            );
+            const imageUrl = res.data.secure_url;
+            setFormDataProduct({
+                ...formDataProduct,
+                image: imageUrl
+            });
+            setErrorImage(""); // Limpiar el error cuando se carga la imagen correctamente
+        } catch (error) {
+            console.error("Error uploading image: ", error);
+            toast.error("Error uploading image");
+        }
+    };
+
+    const validateField = (fieldName, value) => {
+        switch (fieldName) {
+            case 'name':
+                setErrorName(validationFormProduct({ ...formDataProduct, [fieldName]: value })[fieldName]);
+                break;
+            case 'price':
+                setErrorPrice(validationFormProduct({ ...formDataProduct, [fieldName]: value })[fieldName]);
+                break;
+            case 'type':
+                setErrorType(validationFormProduct({ ...formDataProduct, [fieldName]: value })[fieldName]);
+                break;
+            default:
+                break;
+        }
     };
 
     return (
@@ -90,7 +114,7 @@ const ProductForm = ({ product, closeModal, isUpdating }) => {
                                 >
                                     Name
                                 </label>
-                                {errorFormProduct.name && <p style={{ color: "red" }}>{errorFormProduct.name}</p>}
+                                {errorName && <p style={{ color: "red" }}>{errorName}</p>}
                                 <input
                                     value={formDataProduct.name}
                                     onChange={handleChange}
@@ -108,7 +132,7 @@ const ProductForm = ({ product, closeModal, isUpdating }) => {
                                 >
                                     Price
                                 </label>
-                                {errorFormProduct.price && <p style={{ color: "red" }}>{errorFormProduct.price}</p>}
+                                {errorPrice && <p style={{ color: "red" }}>{errorPrice}</p>}
                                 <input
                                     value={formDataProduct.price}
                                     onChange={handleChange}
@@ -127,7 +151,7 @@ const ProductForm = ({ product, closeModal, isUpdating }) => {
                                 >
                                     Type
                                 </label>
-                                {errorFormProduct.type && <p style={{ color: "red" }}>{errorFormProduct.type}</p>}
+                                {errorType && <p style={{ color: "red" }}>{errorType}</p>}
                                 <select
                                     value={formDataProduct.type}
                                     onChange={handleChange}
@@ -146,7 +170,7 @@ const ProductForm = ({ product, closeModal, isUpdating }) => {
                                 >
                                     Image
                                 </label>
-                                {errorFormProduct.image && <p style={{ color: "red" }}>{errorFormProduct.image}</p>}
+                                {errorImage && <p style={{ color: "red" }}>{errorImage}</p>}
                                 <input
                                     onChange={handleImageUpload}
                                     type="file"

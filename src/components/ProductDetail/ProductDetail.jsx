@@ -35,7 +35,7 @@ const ProductDetail = () => {
         <div className="container mx-auto pt-8 px-4">
             {productDetail && (
                 <div className="flex flex-col items-center bg-gray-800 p-8 rounded-lg shadow-lg w-full lg:w-3/4 mx-auto">
-                    <div className="flex justify-between w-full mb-4">
+                    <div className="flex justify-end w-full mb-4">
                         <button
                             onClick={openModal}
                             className="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
@@ -56,31 +56,40 @@ const ProductDetail = () => {
                             className="w-full lg:w-2/5 h-auto object-cover object-center rounded-lg shadow-md"
                         />
                         <div className="w-full">
-                            <table className="min-w-full divide-y divide-gray-400">
-                                <tbody className="bg-gray-700 divide-y divide-gray-400">
-                                    <tr>
-                                        <td className="px-6 py-4 whitespace-nowrap">
-                                            <div className="text-sm text-gray-200">Name: {productDetail.name}</div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="px-6 py-4 whitespace-nowrap">
-                                            <div className="text-sm text-gray-200">Price: ${productDetail.price}</div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="px-6 py-4 whitespace-nowrap">
-                                            <div className="text-sm text-gray-200">Type: {productDetail.type}</div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div className="bg-gray-700 p-4 rounded-lg shadow-md">
+                                <h2 className="text-2xl font-semibold text-gray-200 mb-4">
+                                    {productDetail.name}
+                                </h2>
+                                <table className="min-w-full divide-y divide-gray-400">
+                                    <tbody className="bg-gray-700 divide-y divide-gray-400">
+                                        <tr>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                <div className="text-sm text-gray-200">Name</div>
+                                                <div className="text-lg font-medium text-white">{productDetail.name}</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                <div className="text-sm text-gray-200">Price</div>
+                                                <div className="text-lg font-medium text-white">${productDetail.price}</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                <div className="text-sm text-gray-200">Type</div>
+                                                <div className="text-lg font-medium text-white">{productDetail.type}</div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     <Modal
                         isOpen={isModalOpen}
                         onRequestClose={closeModal}
-                        className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 h-auto mx-auto my-auto p-5"
+                        className="w-full md:w-2/3 lg:w-3/4 xl:w-4/5 h-auto mx-auto my-auto p-2 bg-white rounded-lg shadow-lg"
+                        overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
                     >
                         <ProductForm
                             product={productDetail}

@@ -28,9 +28,12 @@ const rootReducer = (state = initialState, { type, payload }) => {
                 products: [...state.products, payload]
             }
         case DELETE_PRODUCT:
+            if (!Array.isArray(state.products)) {
+                return state;
+            }
             return {
                 ...state,
-                products: state.products.filter(product=> product.id !== payload)
+                products: state.products.filter(product => product.id !== payload)
             }
         case GET_ALL_STORES:
             return {
@@ -50,7 +53,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
         case DELETE_STORES:
             return {
                 ...state,
-                stores: state.stores.filter(store=> store.id !== payload)
+                stores: state.stores.filter(store => store.id !== payload)
             }
         case ADD_STORE_TO_PRODUCT:
             return {
@@ -75,8 +78,8 @@ const rootReducer = (state = initialState, { type, payload }) => {
                 accessToken: payload.accessToken
             }
         default:
-            return { ...state }
+            return state;
     }
 }
 
-export default rootReducer
+export default rootReducer;
